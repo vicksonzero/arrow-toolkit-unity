@@ -35,6 +35,7 @@ public class BUI : MonoBehaviour
     void UpdateText()
     {
         text.text = "Coins: " + coins +
-            "\nMax Combo: " + maxCombo;
+            "\nMax Combo: " + maxCombo+
+            "\nB=Shop";
     }
 }

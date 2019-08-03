@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 4495503791346178991}
   m_Layer: 11
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,7 @@ MonoBehaviour:
   followIntervalMin: 1000
   followIntervalMax: 3000
   canFollowPlayer: 1
+  hitSound: {fileID: 8300000, guid: 2731b73ecf1514841b3a962b5a128c5f, type: 3}
 --- !u!58 &4495503791346178991
 CircleCollider2D:
   m_ObjectHideFlags: 0

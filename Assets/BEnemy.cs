@@ -17,6 +17,8 @@ public class BEnemy : MonoBehaviour
     RectTransform playerTransform;
     Vector3 targetPosition;
 
+    public AudioClip hitSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +46,17 @@ public class BEnemy : MonoBehaviour
 
     async void UpdateTargetPos()
     {
-        targetPosition = playerTransform.position;
-        canFollowPlayer = false;
-        await Task.Delay(TimeSpan.FromMilliseconds(followInterval));
-        canFollowPlayer = true;
+        if (playerTransform == null)
+        {
+            canFollowPlayer = false;
+        }
+        else
+        {
+            targetPosition = playerTransform.position;
+            canFollowPlayer = false;
+            await Task.Delay(TimeSpan.FromMilliseconds(followInterval));
+            canFollowPlayer = true;
+        }
     }
 
 
@@ -56,9 +65,15 @@ public class BEnemy : MonoBehaviour
         //Debug.Log("OnTriggerEnter " + collision.collider.tag);
         if (collision.collider.CompareTag("Arrow"))
         {
-            collision.collider.GetComponent<BArrow>().RestoreVelo();
-            collision.collider.GetComponent<BArrow>().PickUpCoin(1);
-            collision.collider.GetComponent<BArrow>().pickUpSpeed(0.5f);
+            var arrow = collision.collider.GetComponent<BArrow>();
+            arrow.RestoreVelo();
+            arrow.PickUpCoin(1);
+            arrow.AddCombo();
+            arrow.pickUpSpeed(0.5f);
+            if (hitSound)
+            {
+                arrow.PlaySound(hitSound);
+            }
 
             Destroy(gameObject);
         }

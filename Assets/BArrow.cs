@@ -14,7 +14,12 @@ public class BArrow : MonoBehaviour
     public Text coinTextLabel;
 
     public BArrowItem arrowItemPrefab;
+    public AudioClip swooshSound;
+    public AudioClip ricochetSound;
+
+
     Rigidbody2D rb;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +32,7 @@ public class BArrow : MonoBehaviour
     {
         currVelo = rb.velocity;
         currSpeed = currVelo.magnitude;
-        if (currSpeed < 0.2)
+        if (currSpeed < 0.3)
         {
             Die();
         }
@@ -42,6 +47,12 @@ public class BArrow : MonoBehaviour
             var angle = Vector2.SignedAngle(Vector2.right, v);
             transform.eulerAngles = new Vector3(0, 0, angle);
 
+            var player = FindObjectOfType<BPlayer>();
+
+            if (player)
+            {
+                player.PlaySound(ricochetSound);
+            }
 
             rb.velocity = v;
         }
@@ -77,5 +88,15 @@ public class BArrow : MonoBehaviour
         var arrowItem = Instantiate(arrowItemPrefab, transform.position, Quaternion.identity);
         arrowItem.GetComponent<BArrowItem>().ApplyCoin(coin);
         Destroy(gameObject);
+    }
+
+
+    public void PlaySound(AudioClip clip)
+    {
+        var player = FindObjectOfType<BPlayer>();
+        if (player)
+        {
+            player.PlaySound(clip);
+        }
     }
 }
