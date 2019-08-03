@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class BController : MonoBehaviour
     public Text uiText;
     public Text licenseText;
 
+    public DateTime startTime;
     public bool gameIsOver = false;
     public AudioClip gameOverSound;
     AudioSource sound;
@@ -17,6 +19,7 @@ public class BController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startTime = DateTime.Now;
         gameOverText.gameObject.SetActive(false);
         gameOverSummary.gameObject.SetActive(false);
 
@@ -46,15 +49,15 @@ public class BController : MonoBehaviour
     {
         CleanUp();
 
-
         uiText.gameObject.SetActive(false);
         gameOverText.gameObject.SetActive(true);
         gameOverSummary.gameObject.SetActive(true);
 
-        gameOverSummary.text = "Time: " + "" +
+
+        gameOverSummary.text = "Time: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss\.fff") +
             "\nMax Combo: " + ui.MaxCombo +
             "\n\n Press Enter to restart" +
-            "\nL=License"
+            "\nL=Credits"
             ;
 
         sound.PlayOneShot(gameOverSound);

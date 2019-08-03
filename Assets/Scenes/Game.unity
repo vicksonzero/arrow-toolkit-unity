@@ -698,7 +698,7 @@ MonoBehaviour:
 
     Press Enter to restart
 
-    L=License'
+    L=Credits'
 --- !u!222 &567590074
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -777,7 +777,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Arrow-Toolkit by Dickson (@vicksonzero)\n\nCoding: Dickson (https://github.com/vicksonzero)\n\nGraphics\nhttps://Kenney.nl\n\nAudio\nhttps://freesound.org/people/Angel_Perez_Grandi/sounds/71175/\r\nhttps://freesound.org/people/SypherZent/sounds/420668/\r\nhttps://freesound.org/people/Corruptinator/sounds/457172/\r\nhttps://freesound.org/people/Black%20Boe/sounds/22329/\r\nhttps://freesound.org/people/florianreichelt/sounds/448213/\n\n\nPress
+  m_Text: "Arrow-Toolkit by Dickson (@vicksonzero)\n\nCoding: Dickson (https://github.com/vicksonzero)\n\nGraphics\nhttps://Kenney.nl\n\nAudio\nhttps://freesound.org/people/Angel_Perez_Grandi/sounds/71175/\r\nhttps://freesound.org/people/SypherZent/sounds/420668/\r\nhttps://freesound.org/people/Corruptinator/sounds/457172/\r\nhttps://freesound.org/people/Black%20Boe/sounds/22329/\r\nhttps://freesound.org/people/florianreichelt/sounds/448213/\nhttp://propanmode.net\n\n\nPress
     Enter to Restart"
 --- !u!222 &621579976
 CanvasRenderer:
@@ -1158,6 +1158,7 @@ MonoBehaviour:
     type: 3}
   arrowSpeed: 10
   level: 0
+  pickUpSound: {fileID: 8300000, guid: c309e352ee77d5449899c0cfcb363c39, type: 3}
 --- !u!82 &938173464
 AudioSource:
   m_ObjectHideFlags: 0

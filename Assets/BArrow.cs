@@ -14,6 +14,7 @@ public class BArrow : MonoBehaviour
     public float[] penetrateSpeed = new float[] { 0.5f, 0.6f, 0.7f, 0.8f };
 
     public Text coinTextLabel;
+    public Text speedTextLabel;
 
     public BArrowItem arrowItemPrefab;
     public AudioClip swooshSound;
@@ -21,11 +22,13 @@ public class BArrow : MonoBehaviour
 
 
     Rigidbody2D rb;
+    BPlayer player;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<BPlayer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -34,9 +37,21 @@ public class BArrow : MonoBehaviour
     {
         currVelo = rb.velocity;
         currSpeed = currVelo.magnitude;
+        speedTextLabel.text = currSpeed.ToString("F2");
         if (currSpeed < 0.3)
         {
             Die();
+        }
+
+
+        if (player)
+        {
+            var speed = rb.velocity.magnitude;
+            var distToPlayer = Vector2.Distance(player.transform.position, transform.position);
+            if (speed < 2 && distToPlayer < 0.4)
+            {
+                Die();
+            }
         }
     }
 

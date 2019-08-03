@@ -8,6 +8,7 @@ public class BUI : MonoBehaviour
     private int maxCombo = 0;
     private BShop shop;
 
+
     public int MaxCombo
     {
         get => maxCombo;

@@ -9,6 +9,8 @@ public class BBow : MonoBehaviour
 
     public int level = 0;
 
+    public AudioClip pickUpSound;
+
     BUI ui;
 
     // Start is called before the first frame update
@@ -48,6 +50,7 @@ public class BBow : MonoBehaviour
         {
             ui.Coins += bArrowItem.coin;
             haveArrow = true;
+            GetComponent<BPlayer>().PlaySound(pickUpSound);
             Destroy(bArrowItem.gameObject);
         }
 

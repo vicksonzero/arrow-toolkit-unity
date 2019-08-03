@@ -31,6 +31,8 @@ public class BEnemy : MonoBehaviour
     void FixedUpdate()
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
+        var angle = Vector2.SignedAngle(Vector2.right, targetPosition - transform.position);
+        transform.eulerAngles = new Vector3(0, 0, angle);
 
         if (Vector3.Distance(transform.position, targetPosition) <= 0.1)
         {

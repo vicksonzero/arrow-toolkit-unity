@@ -40,7 +40,7 @@ public class BShop : MonoBehaviour
         var str = "";
 
         var bow = FindObjectOfType<BBow>();
-        if (bow.level < 3)
+        if (bow && bow.level < 3)
         {
             if (ui.Coins >= arrowShop[bow.level].cost * 0.7)
             {
