@@ -692,13 +692,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Audio\nhttps://freesound.org/people/Angel_Perez_Grandi/sounds/71175/\r\nhttps://freesound.org/people/SypherZent/sounds/420668/\r\nhttps://freesound.org/people/Corruptinator/sounds/457172/\r\nhttps://freesound.org/people/Black%20Boe/sounds/22329/\n\n\nPress
+  m_Text: "Arrow-Toolkit by Dickson (@vicksonzero)\n\nCoding: Dickson (https://github.com/vicksonzero)\n\nGraphics\nhttps://Kenney.nl\n\nAudio\nhttps://freesound.org/people/Angel_Perez_Grandi/sounds/71175/\r\nhttps://freesound.org/people/SypherZent/sounds/420668/\r\nhttps://freesound.org/people/Corruptinator/sounds/457172/\r\nhttps://freesound.org/people/Black%20Boe/sounds/22329/\r\nhttps://freesound.org/people/florianreichelt/sounds/448213/\n\n\nPress
     Enter to Restart"
 --- !u!222 &621579976
 CanvasRenderer:
@@ -1826,6 +1826,7 @@ MonoBehaviour:
   gameOverText: {fileID: 555326014}
   gameOverSummary: {fileID: 567590073}
   uiText: {fileID: 1957362850}
+  licenseText: {fileID: 621579975}
   gameIsOver: 0
   gameOverSound: {fileID: 8300000, guid: e35533b6ca8655d42a4a10992cb61f8e, type: 3}
 --- !u!82 &2044567461
@@ -1939,12 +1940,12 @@ PrefabInstance:
     - target: {fileID: 6149829897338739283, guid: 7ca624fa74fdf1343addd8147daf6702,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.72
+      value: 3.47
       objectReference: {fileID: 0}
     - target: {fileID: 6149829897338739283, guid: 7ca624fa74fdf1343addd8147daf6702,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.79
+      value: -4.87
       objectReference: {fileID: 0}
     - target: {fileID: 6149829897338739283, guid: 7ca624fa74fdf1343addd8147daf6702,
         type: 3}

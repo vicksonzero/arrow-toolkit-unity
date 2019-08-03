@@ -8,6 +8,7 @@ public class BController : MonoBehaviour
     public Text gameOverText;
     public Text gameOverSummary;
     public Text uiText;
+    public Text licenseText;
 
     public bool gameIsOver = false;
     public AudioClip gameOverSound;
@@ -32,6 +33,12 @@ public class BController : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
+            if (Input.GetButtonDown("License"))
+            {
+                gameOverText.gameObject.SetActive(false);
+                gameOverSummary.gameObject.SetActive(false);
+                licenseText.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -46,7 +53,7 @@ public class BController : MonoBehaviour
 
         gameOverSummary.text = "Time: " + "" +
             "\nMax Combo: " + ui.MaxCombo +
-            "\n\n Press Enter to restart"+
+            "\n\n Press Enter to restart" +
             "\nL=License"
             ;
 

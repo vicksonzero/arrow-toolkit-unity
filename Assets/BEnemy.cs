@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 public class BEnemy : MonoBehaviour
@@ -25,7 +24,7 @@ public class BEnemy : MonoBehaviour
         speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
         followInterval = UnityEngine.Random.Range(followIntervalMin, followIntervalMax);
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<RectTransform>();
-        UpdateTargetPos();
+        StartCoroutine(UpdateTargetPos());
     }
 
     // Update is called once per frame
@@ -40,11 +39,11 @@ public class BEnemy : MonoBehaviour
 
         if (canFollowPlayer)
         {
-            UpdateTargetPos();
+            StartCoroutine(UpdateTargetPos());
         }
     }
 
-    async void UpdateTargetPos()
+    IEnumerator UpdateTargetPos()
     {
         if (playerTransform == null)
         {
@@ -54,7 +53,7 @@ public class BEnemy : MonoBehaviour
         {
             targetPosition = playerTransform.position;
             canFollowPlayer = false;
-            await Task.Delay(TimeSpan.FromMilliseconds(followInterval));
+            yield return new WaitForSeconds(followInterval / 1000);
             canFollowPlayer = true;
         }
     }

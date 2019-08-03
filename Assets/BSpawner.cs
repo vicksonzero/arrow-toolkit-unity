@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 public class BSpawner : MonoBehaviour
@@ -23,23 +22,22 @@ public class BSpawner : MonoBehaviour
     {
         if (canSpawn)
         {
-            var a = SpawnEnemy();
+            StartCoroutine(SpawnEnemy());
         }
     }
 
-    public async Task<bool> SpawnEnemy()
+    public IEnumerator SpawnEnemy()
     {
         var bull = Instantiate(enemy, transform.position, transform.rotation);
 
         canSpawn = false;
 
         //Debug.Log("Waiting 1 second...");
-        await Task.Delay(TimeSpan.FromMilliseconds(spawnInterval));
+        yield return new WaitForSeconds(spawnInterval / 1000);
         if (gameObject == null)
         {
-            return false;
+            yield break;
         }
         canSpawn = true;
-        return true;
     }
 }
