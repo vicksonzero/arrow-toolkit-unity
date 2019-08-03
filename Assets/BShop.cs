@@ -20,33 +20,25 @@ public class BShop : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(arrowShopKey))
-        {
-            UpgradeArrow();
-        }
+        //if (Input.GetKeyDown(arrowShopKey))
+        //{
+        //    UpgradeArrow();
+        //}
     }
 
-    public void UpgradeArrow()
-    {
-        var bow = FindObjectOfType<BBow>();
-        if (bow && bow.level < 3)
-        {
-            bow.UpgradeArrow();
-        }
-    }
 
     public string GetShop()
     {
         var str = "";
 
-        var bow = FindObjectOfType<BBow>();
-        if (bow && bow.level < 3)
-        {
-            if (ui.Coins >= arrowShop[bow.level].cost * 0.7)
-            {
-                str += "<1> $" + arrowShop[bow.level].cost + "  " + arrowShop[bow.level].name;
-            }
-        }
+        //var bow = FindObjectOfType<BBow>();
+        //if (bow && bow.level < 3)
+        //{
+        //    if (ui.Coins >= arrowShop[bow.level].cost * 0.7)
+        //    {
+        //        str += "<1> $" + arrowShop[bow.level].cost + "  " + arrowShop[bow.level].name;
+        //    }
+        //}
 
         return str;
 

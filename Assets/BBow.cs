@@ -3,13 +3,17 @@
 public class BBow : MonoBehaviour
 {
     public bool haveArrow = true;
+    public bool isCharging = false;
+    public int chargeLevel = 0;
     public BArrow arrowPrefab;
-
-    public float arrowSpeed = 3;
+    public float chargeStartTime;
+    public float[] chargeArrowSpeeds;
+    public ParticleSystem chargeParticles;
 
     public int level = 0;
 
     public AudioClip pickUpSound;
+    public AudioClip[] chargingSounds;
 
     BUI ui;
 
@@ -20,13 +24,45 @@ public class BBow : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if (haveArrow)
+            if (isCharging)
             {
                 ShootArrow();
+                isCharging = false;
+                chargeLevel = 0;
+            }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (haveArrow)
+            {
+                isCharging = true;
+                chargeStartTime = Time.time;
+            }
+        }
+        if (isCharging)
+        {
+            if (chargeLevel == 0 && Time.time - chargeStartTime >= 0.5)
+            {
+                chargeLevel++;
+
+                GetComponent<BPlayer>().PlaySound(chargingSounds[0]);
+                chargeParticles.Play();
+            }
+            if (chargeLevel == 1 && Time.time - chargeStartTime >= 1.5)
+            {
+                chargeLevel++;
+                GetComponent<BPlayer>().PlaySound(chargingSounds[1]);
+                chargeParticles.Play();
+            }
+            if (chargeLevel == 2 && Time.time - chargeStartTime >= 2.5)
+            {
+                chargeLevel++;
+                GetComponent<BPlayer>().PlaySound(chargingSounds[2]);
+                chargeParticles.Play();
             }
         }
     }
@@ -38,7 +74,8 @@ public class BBow : MonoBehaviour
         var angle = Vector2.SignedAngle(Vector2.right, Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrow.transform.position);
         arrow.transform.eulerAngles = new Vector3(0, 0, angle);
         arrow.GetComponent<BArrow>().level = level;
-        arrow.GetComponent<Rigidbody2D>().velocity = arrow.transform.right * arrowSpeed;
+        var _arrowSpeed = chargeArrowSpeeds[chargeLevel];
+        arrow.GetComponent<Rigidbody2D>().velocity = arrow.transform.right * _arrowSpeed;
 
         haveArrow = false;
     }
@@ -55,28 +92,5 @@ public class BBow : MonoBehaviour
         }
 
     }
-
-    public void UpgradeArrow()
-    {
-        if (level < 3)
-        {
-            level++;
-        }
-
-        switch (level)
-        {
-            case 1:
-                arrowSpeed = 15;
-                break;
-            case 2:
-                arrowSpeed = 20;
-                break;
-            case 3:
-                arrowSpeed = 30;
-                break;
-            default:
-                arrowSpeed = 10;
-                break;
-        }
-    }
+    
 }

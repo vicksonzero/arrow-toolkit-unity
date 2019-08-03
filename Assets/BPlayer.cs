@@ -7,6 +7,7 @@ public class BPlayer : MonoBehaviour
     public AudioSource proximitySoundLoop;
 
     Rigidbody2D rb;
+    BBow bow;
     Vector2 moveVelocity;
 
     AudioSource sound;
@@ -15,13 +16,14 @@ public class BPlayer : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sound = GetComponent<AudioSource>();
+        bow = GetComponent<BBow>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed;
+        moveVelocity = moveInput.normalized * speed * (bow.isCharging ? 0.5f : 1);
     }
 
     private void FixedUpdate()
@@ -29,8 +31,11 @@ public class BPlayer : MonoBehaviour
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
 
         var closestEnemy = FindClosestEnemy();
-        this. proximityIndex = 1 - Mathf.Max(0, Vector2.Distance(closestEnemy.transform.position, transform.position) / 3);
-        proximitySoundLoop.volume = 1f * proximityIndex;
+        if (closestEnemy)
+        {
+            proximityIndex = 1 - Mathf.Max(0, Vector2.Distance(closestEnemy.transform.position, transform.position) / 3);
+            proximitySoundLoop.volume = 1f * proximityIndex;
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
