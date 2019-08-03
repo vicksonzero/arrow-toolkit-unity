@@ -10,6 +10,8 @@ public class BArrow : MonoBehaviour
     public float maxVelocity = 30;
     public int coin = 0;
     public int combo = 0;
+    public int level = 0;
+    public float[] penetrateSpeed = new float[] { 0.5f, 0.6f, 0.7f, 0.8f };
 
     public Text coinTextLabel;
 
@@ -58,8 +60,9 @@ public class BArrow : MonoBehaviour
         }
     }
 
-    public void pickUpSpeed(float amount)
+    public void pickUpSpeed()
     {
+        var amount = penetrateSpeed[level];
         rb.velocity *= amount;
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
@@ -71,7 +74,7 @@ public class BArrow : MonoBehaviour
 
     public void PickUpCoin(int amount)
     {
-        coin += (int)Mathf.Pow(1.2f, coin) * amount;
+        coin += (int)Mathf.Pow(Mathf.Max(1, coin), 0.5f) * amount;
         coinTextLabel.text = "" + coin;
     }
 

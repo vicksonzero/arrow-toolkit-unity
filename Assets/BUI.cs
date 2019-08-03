@@ -6,6 +6,7 @@ public class BUI : MonoBehaviour
     public Text text;
     private int coins = 0;
     private int maxCombo = 0;
+    private BShop shop;
 
     public int MaxCombo
     {
@@ -18,24 +19,26 @@ public class BUI : MonoBehaviour
     }
     public int Coins
     {
-        get => coins; set
+        get => coins;
+        set
         {
             coins = value;
             UpdateText();
         }
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
-
+        shop = FindObjectOfType<BShop>();
     }
 
     // Update is called once per frame
     void UpdateText()
     {
         text.text = "Coins: " + coins +
-            "\nMax Combo: " + maxCombo+
-            "\nB=Shop";
+            "\nMax Combo: " + maxCombo +
+            "\n" + shop.GetShop();
     }
 }

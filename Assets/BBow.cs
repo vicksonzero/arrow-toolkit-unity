@@ -7,7 +7,7 @@ public class BBow : MonoBehaviour
 
     public float arrowSpeed = 3;
 
-    public int coin = 0;
+    public int level = 0;
 
     BUI ui;
 
@@ -35,6 +35,7 @@ public class BBow : MonoBehaviour
         var arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
         var angle = Vector2.SignedAngle(Vector2.right, Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrow.transform.position);
         arrow.transform.eulerAngles = new Vector3(0, 0, angle);
+        arrow.GetComponent<BArrow>().level = level;
         arrow.GetComponent<Rigidbody2D>().velocity = arrow.transform.right * arrowSpeed;
 
         haveArrow = false;
@@ -45,11 +46,34 @@ public class BBow : MonoBehaviour
         var bArrowItem = collision.collider.GetComponent<BArrowItem>();
         if (bArrowItem)
         {
-            coin += bArrowItem.coin;
-            ui.Coins = coin;
+            ui.Coins += bArrowItem.coin;
             haveArrow = true;
             Destroy(bArrowItem.gameObject);
         }
 
+    }
+
+    public void UpgradeArrow()
+    {
+        if (level < 3)
+        {
+            level++;
+        }
+
+        switch (level)
+        {
+            case 1:
+                arrowSpeed = 15;
+                break;
+            case 2:
+                arrowSpeed = 20;
+                break;
+            case 3:
+                arrowSpeed = 30;
+                break;
+            default:
+                arrowSpeed = 10;
+                break;
+        }
     }
 }
