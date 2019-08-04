@@ -14,8 +14,8 @@ public class BEnemy : MonoBehaviour
     public bool canFollowPlayer = true;
     public GameObject shield;
 
-    RectTransform playerTransform;
-    Vector3 targetPosition;
+    protected RectTransform playerTransform;
+    protected Vector3 targetPosition;
 
     public AudioClip hitSound;
 
@@ -48,6 +48,7 @@ public class BEnemy : MonoBehaviour
 
     IEnumerator UpdateTargetPos()
     {
+        Debug.Log("BEnemy UpdateTargetPos");
         if (playerTransform == null)
         {
             canFollowPlayer = false;
@@ -79,6 +80,9 @@ public class BEnemy : MonoBehaviour
                     arrow.PlaySound(hitSound);
                 }
 
+                var shakeIntensity = arrow.currSpeed / 30;
+
+                FindObjectOfType<BCameraShake>().Nudge(0.1f, shakeIntensity * 2f);
                 Destroy(gameObject);
             }
         }

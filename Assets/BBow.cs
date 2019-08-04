@@ -3,7 +3,11 @@
 public class BBow : MonoBehaviour
 {
     public bool haveArrow = true;
+    public GameObject haveArrowIndicator;
+    public ParticleSystem haveArrowIndicatorParticle;
     public bool isCharging = false;
+    public GameObject chargingIndicator;
+    
     public int chargeLevel = 0;
     public BArrow arrowPrefab;
     public float chargeStartTime;
@@ -34,6 +38,7 @@ public class BBow : MonoBehaviour
             {
                 ShootArrow();
                 isCharging = false;
+                UpdateArrowIndicator();
                 chargeParticles.Stop();
                 chargeLevel = 0;
             }
@@ -43,6 +48,7 @@ public class BBow : MonoBehaviour
             if (haveArrow)
             {
                 isCharging = true;
+                UpdateArrowIndicator();
                 chargeParticles.Play();
                 chargeStartTime = Time.time;
             }
@@ -82,6 +88,7 @@ public class BBow : MonoBehaviour
         arrow.GetComponent<Rigidbody2D>().velocity = arrow.transform.right * _arrowSpeed;
 
         haveArrow = false;
+        UpdateArrowIndicator();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -91,10 +98,18 @@ public class BBow : MonoBehaviour
         {
             ui.Coins += bArrowItem.coin;
             haveArrow = true;
+            UpdateArrowIndicator();
+            haveArrowIndicatorParticle.Play();
             GetComponent<BPlayer>().PlaySound(pickUpSound);
             Destroy(bArrowItem.gameObject);
         }
 
+    }
+
+    public void UpdateArrowIndicator()
+    {
+        haveArrowIndicator.SetActive(haveArrow && !isCharging);
+        chargingIndicator.SetActive(haveArrow && isCharging);
     }
 
 }
