@@ -186,6 +186,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6149829897338739281, guid: 7ca624fa74fdf1343addd8147daf6702,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6149829897338739283, guid: 7ca624fa74fdf1343addd8147daf6702,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -402,6 +407,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149829897338739281, guid: 7ca624fa74fdf1343addd8147daf6702,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6149829897338739283, guid: 7ca624fa74fdf1343addd8147daf6702,
         type: 3}
@@ -766,10 +776,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 31
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -777,8 +787,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Arrow-Toolkit by Dickson (@vicksonzero)\n\nCoding: Dickson (https://github.com/vicksonzero)\n\nGraphics\nhttps://Kenney.nl\n\nAudio\nhttps://freesound.org/people/Angel_Perez_Grandi/sounds/71175/\r\nhttps://freesound.org/people/SypherZent/sounds/420668/\r\nhttps://freesound.org/people/Corruptinator/sounds/457172/\r\nhttps://freesound.org/people/Black%20Boe/sounds/22329/\r\nhttps://freesound.org/people/florianreichelt/sounds/448213/\nhttp://propanmode.net\n\n\nPress
-    Enter to Restart"
+  m_Text: "Arrow-Toolkit by Dickson (@vicksonzero)\nCoding: Dickson (https://github.com/vicksonzero)\n\nGraphics\nhttps://Kenney.nl\nhttp://hasgraphics.com/tag/explosion/\n\nAudio\nhttps://freesound.org/people/Angel_Perez_Grandi/sounds/71175/\r\nhttps://freesound.org/people/SypherZent/sounds/420668/\r\nhttps://freesound.org/people/Corruptinator/sounds/457172/\r\nhttps://freesound.org/people/Black%20Boe/sounds/22329/\r\nhttps://freesound.org/people/florianreichelt/sounds/448213/\r\nhttps://freesound.org/people/j1987/sounds/140715/\r\nhttps://freesound.org/people/V-ktor/sounds/435416/\r\nhttps://freesound.org/people/deleted_user_5405837/sounds/399303/\nhttp://propanmode.net
+    x4\n\n< Press Enter to Restart >"
 --- !u!222 &621579976
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1163,8 +1173,8 @@ MonoBehaviour:
   chargeArrowSpeeds:
   - 3
   - 10
-  - 13
   - 20
+  - 30
   chargeParticles: {fileID: 2008744327}
   level: 0
   pickUpSound: {fileID: 8300000, guid: c309e352ee77d5449899c0cfcb363c39, type: 3}
@@ -7292,6 +7302,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149829897338739282, guid: 7ca624fa74fdf1343addd8147daf6702,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 3760609034606232641, guid: 21549433ac546da46b35d0907febb2ed,
+        type: 3}
+    - target: {fileID: 6149829897338739282, guid: 7ca624fa74fdf1343addd8147daf6702,
+        type: 3}
+      propertyPath: spawnIntervalMin
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149829897338739282, guid: 7ca624fa74fdf1343addd8147daf6702,
+        type: 3}
+      propertyPath: spawnIntervalMax
+      value: 15000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca624fa74fdf1343addd8147daf6702, type: 3}

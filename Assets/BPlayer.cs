@@ -23,12 +23,23 @@ public class BPlayer : MonoBehaviour
     void Update()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed * (bow.isCharging ? 0.5f : 1);
+        moveVelocity = moveInput.normalized * speed * (bow.isCharging ? 0.7f : 1);
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
+
+        if (bow.isCharging)
+        {
+            var angle = Vector2.SignedAngle(Vector2.right, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        }
+        else
+        {
+            var angle = Vector2.SignedAngle(Vector2.right, moveVelocity);
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        }
 
         var closestEnemy = FindClosestEnemy();
         if (closestEnemy)

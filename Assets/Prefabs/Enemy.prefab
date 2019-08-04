@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  minSpeed: 1
+  minSpeed: 0.7
   maxSpeed: 1.5
   followInterval: 3000
   followIntervalMin: 1000

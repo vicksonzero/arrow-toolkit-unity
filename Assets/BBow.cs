@@ -73,7 +73,7 @@ public class BBow : MonoBehaviour
         var arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
         var angle = Vector2.SignedAngle(Vector2.right, Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrow.transform.position);
         arrow.transform.eulerAngles = new Vector3(0, 0, angle);
-        arrow.GetComponent<BArrow>().level = level;
+        arrow.GetComponent<BArrow>().level = chargeLevel;
         var _arrowSpeed = chargeArrowSpeeds[chargeLevel];
         arrow.GetComponent<Rigidbody2D>().velocity = arrow.transform.right * _arrowSpeed;
 

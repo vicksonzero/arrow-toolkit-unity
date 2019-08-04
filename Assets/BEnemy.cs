@@ -12,6 +12,7 @@ public class BEnemy : MonoBehaviour
     public float followIntervalMin = 3000;
     public float followIntervalMax = 4000;
     public bool canFollowPlayer = true;
+    public GameObject shield;
 
     RectTransform playerTransform;
     Vector3 targetPosition;
@@ -34,7 +35,7 @@ public class BEnemy : MonoBehaviour
         var angle = Vector2.SignedAngle(Vector2.right, targetPosition - transform.position);
         transform.eulerAngles = new Vector3(0, 0, angle);
 
-        if (Vector3.Distance(transform.position, targetPosition) <= 0.1)
+        if (Vector3.Distance(transform.position, targetPosition) <= 0.1 && shield == null)
         {
             canFollowPlayer = true;
         }
@@ -66,17 +67,20 @@ public class BEnemy : MonoBehaviour
         //Debug.Log("OnTriggerEnter " + collision.collider.tag);
         if (collision.collider.CompareTag("Arrow"))
         {
-            var arrow = collision.collider.GetComponent<BArrow>();
-            arrow.RestoreVelo();
-            arrow.PickUpCoin(1);
-            arrow.AddCombo();
-            arrow.pickUpSpeed();
-            if (hitSound)
+            if (collision.otherCollider.CompareTag("Enemy"))
             {
-                arrow.PlaySound(hitSound);
-            }
+                var arrow = collision.collider.GetComponent<BArrow>();
+                arrow.RestoreVelo();
+                arrow.PickUpCoin(1);
+                arrow.AddCombo();
+                arrow.pickUpSpeed();
+                if (hitSound)
+                {
+                    arrow.PlaySound(hitSound);
+                }
 
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }
