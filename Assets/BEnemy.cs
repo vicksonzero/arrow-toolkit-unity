@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BEnemy : MonoBehaviour
 {
-
+    public int enemyID = -1;
     public float speed = 1;
     public float minSpeed = 1;
     public float maxSpeed = 1;
@@ -19,13 +19,26 @@ public class BEnemy : MonoBehaviour
 
     public AudioClip hitSound;
 
+    BLevel bLevel;
+
     // Start is called before the first frame update
     void Start()
     {
         speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
         followInterval = UnityEngine.Random.Range(followIntervalMin, followIntervalMax);
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<RectTransform>();
+        bLevel = FindObjectOfType<BLevel>();
+
+        bLevel.JoinLevel(enemyID);
         StartCoroutine(UpdateTargetPos());
+    }
+
+    private void OnDestroy()
+    {
+        if (bLevel)
+        {
+            bLevel.LeaveLevel(enemyID);
+        }
     }
 
     // Update is called once per frame
@@ -48,7 +61,7 @@ public class BEnemy : MonoBehaviour
 
     IEnumerator UpdateTargetPos()
     {
-        Debug.Log("BEnemy UpdateTargetPos");
+        //Debug.Log("BEnemy UpdateTargetPos");
         if (playerTransform == null)
         {
             canFollowPlayer = false;
@@ -83,6 +96,11 @@ public class BEnemy : MonoBehaviour
                 var shakeIntensity = arrow.currSpeed / 30;
 
                 FindObjectOfType<BCameraShake>().Nudge(0.1f, shakeIntensity * 2f);
+                var torch = GetComponent<BEnemyTorch>();
+                if (torch)
+                {
+                    torch.willSpawnFire = true;
+                }
                 Destroy(gameObject);
             }
         }

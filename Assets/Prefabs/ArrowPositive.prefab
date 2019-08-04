@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8872529338091817165}
   - component: {fileID: 7125140746390095982}
   m_Layer: 8
-  m_Name: Arrow
+  m_Name: ArrowPositive
   m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,15 +149,15 @@ MonoBehaviour:
   - 20
   - 30
   penetrateSpeed:
-  - 0.5
-  - 0.6
-  - 0.7
+  - 0.8
   - 0.9
+  - 1
+  - 1.1
   bounceBonus:
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.8
+  - 0.8
+  - 0.8
+  - 0.8
   coinTextLabel: {fileID: 7929780920696559211}
   speedTextLabel: {fileID: 2791501581938543557}
   arrowItemPrefab: {fileID: 1572521488933413787, guid: f9b867123b33630499f9fc498ad425f7,

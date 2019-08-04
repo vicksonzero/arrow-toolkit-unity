@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class BController : MonoBehaviour
 {
-
     public Text gameOverText;
     public Text gameOverSummary;
+
+    public Text tutText1;
+    public Text tutText2;
     public Text uiText;
     public Text licenseText;
 
@@ -73,5 +75,19 @@ public class BController : MonoBehaviour
         {
             spawner.gameObject.SetActive(false);
         }
+    }
+
+    public void Tutorial_1_2()
+    {
+        //Debug.Log("Tutorial_1_2");
+        tutText1.gameObject.SetActive(false);
+        tutText2.gameObject.SetActive(true);
+    }
+
+    public void Tutorial_2_3()
+    {
+        //Debug.Log("Tutorial_2_3");
+        tutText2.gameObject.SetActive(false);
+        uiText.gameObject.SetActive(true);
     }
 }

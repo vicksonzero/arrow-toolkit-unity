@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b927c3d99322b4895656c1c9b3c184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyID: 0
   speed: 1
   minSpeed: 0.7
   maxSpeed: 1.5
@@ -163,6 +164,7 @@ MonoBehaviour:
   followIntervalMin: 1000
   followIntervalMax: 3000
   canFollowPlayer: 1
+  shield: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 2731b73ecf1514841b3a962b5a128c5f, type: 3}
 --- !u!58 &4495503791346178991
 CircleCollider2D:

@@ -5,16 +5,20 @@ public class BSpawner : MonoBehaviour
 {
 
     public BEnemy enemy;
+    public int enemyID = 0;
 
     public float spawnInterval = 3000;
     public float spawnIntervalMin = 5000;
     public float spawnIntervalMax = 7000;
     public bool canSpawn = true;
 
+    BLevel bLevel;
+
     // Start is called before the first frame update
     void Start()
     {
-        spawnInterval = UnityEngine.Random.Range(spawnIntervalMin, spawnIntervalMax);
+        spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
+        bLevel = FindObjectOfType<BLevel>();
     }
 
     // Update is called once per frame
@@ -22,7 +26,11 @@ public class BSpawner : MonoBehaviour
     {
         if (canSpawn)
         {
-            StartCoroutine(SpawnEnemy());
+            // Debug.Log("Try spawn: " + name);
+            if (bLevel.isEnemyCountBelowCap(enemyID))
+            {
+                StartCoroutine(SpawnEnemy());
+            }
         }
     }
 

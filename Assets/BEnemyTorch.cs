@@ -4,7 +4,7 @@ public class BEnemyTorch : MonoBehaviour
 {
     public BCampFire campFire;
 
-    public bool willSpawnFire = true;
+    public bool willSpawnFire = false;
     private void Start()
     {
         if (FindObjectOfType<BCampFire>() != null || FindObjectsOfType<BEnemyTorch>().Length > 1)
@@ -18,6 +18,8 @@ public class BEnemyTorch : MonoBehaviour
     {
         willSpawnFire = false;
     }
+
+    
 
     private void OnDestroy()
     {

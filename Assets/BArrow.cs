@@ -13,6 +13,7 @@ public class BArrow : MonoBehaviour
     public int level = 0;
     public float[] chargeArrowSpeeds = new float[] { 3, 10, 20, 30 };
     public float[] penetrateSpeed = new float[] { 0.5f, 0.6f, 0.7f, 0.8f };
+    public float[] bounceBonus = new float[] { 0.8f, 0.8f, 0.8f, 0.8f };
 
     public Text coinTextLabel;
     public Text speedTextLabel;
@@ -74,7 +75,7 @@ public class BArrow : MonoBehaviour
                 player.PlaySound(ricochetSound);
             }
 
-            rb.velocity = v;
+            rb.velocity = v * bounceBonus[level];
             rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
         }
     }

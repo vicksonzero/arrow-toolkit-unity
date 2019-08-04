@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b927c3d99322b4895656c1c9b3c184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyID: 2
   speed: 1
   minSpeed: 0.7
   maxSpeed: 1.5
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   campFire: {fileID: 3784727217596477702, guid: 266d3c7e069d7cc46b6bd3b2268d6c0b,
     type: 3}
+  willSpawnFire: 1
 --- !u!1 &6549620528756982863
 GameObject:
   m_ObjectHideFlags: 0
