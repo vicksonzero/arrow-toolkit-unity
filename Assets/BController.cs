@@ -54,7 +54,8 @@ public class BController : MonoBehaviour
         gameOverSummary.gameObject.SetActive(true);
 
 
-        gameOverSummary.text = "Time: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss\.fff") +
+        gameOverSummary.text = "Score: " + ui.Coins +
+            "\nTime: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss\.fff") +
             "\nMax Combo: " + ui.MaxCombo +
             "\n\n Press Enter to restart" +
             "\nL=Credits"

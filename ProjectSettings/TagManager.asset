@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Arrow
   - Enemy
+  - CampFire
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Player
   - Enemy
   - Item
-  - 
+  - Torch
   - 
   - 
   - 

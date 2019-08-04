@@ -7,8 +7,10 @@ public class BBow : MonoBehaviour
     public int chargeLevel = 0;
     public BArrow arrowPrefab;
     public float chargeStartTime;
-    public float[] chargeArrowSpeeds;
+    float[] chargeArrowSpeeds = new float[] { 3, 10, 20, 30 };
+
     public ParticleSystem chargeParticles;
+    public ParticleSystem chargeLevelParticles;
 
     public int level = 0;
 
@@ -32,6 +34,7 @@ public class BBow : MonoBehaviour
             {
                 ShootArrow();
                 isCharging = false;
+                chargeParticles.Stop();
                 chargeLevel = 0;
             }
         }
@@ -40,6 +43,7 @@ public class BBow : MonoBehaviour
             if (haveArrow)
             {
                 isCharging = true;
+                chargeParticles.Play();
                 chargeStartTime = Time.time;
             }
         }
@@ -50,19 +54,19 @@ public class BBow : MonoBehaviour
                 chargeLevel++;
 
                 GetComponent<BPlayer>().PlaySound(chargingSounds[0]);
-                chargeParticles.Play();
+                chargeLevelParticles.Play();
             }
             if (chargeLevel == 1 && Time.time - chargeStartTime >= 1.5)
             {
                 chargeLevel++;
                 GetComponent<BPlayer>().PlaySound(chargingSounds[1]);
-                chargeParticles.Play();
+                chargeLevelParticles.Play();
             }
             if (chargeLevel == 2 && Time.time - chargeStartTime >= 2.5)
             {
                 chargeLevel++;
                 GetComponent<BPlayer>().PlaySound(chargingSounds[2]);
-                chargeParticles.Play();
+                chargeLevelParticles.Play();
             }
         }
     }
@@ -92,5 +96,5 @@ public class BBow : MonoBehaviour
         }
 
     }
-    
+
 }

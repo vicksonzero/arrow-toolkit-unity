@@ -38,7 +38,7 @@ public class BUI : MonoBehaviour
     // Update is called once per frame
     void UpdateText()
     {
-        text.text = "Coins: " + coins +
+        text.text = "Score: " + coins +
             "\nMax Combo: " + maxCombo +
             "\n" + shop.GetShop();
     }

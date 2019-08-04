@@ -11,6 +11,7 @@ public class BArrow : MonoBehaviour
     public int coin = 0;
     public int combo = 0;
     public int level = 0;
+    public float[] chargeArrowSpeeds = new float[] { 3, 10, 20, 30 };
     public float[] penetrateSpeed = new float[] { 0.5f, 0.6f, 0.7f, 0.8f };
 
     public Text coinTextLabel;
@@ -19,6 +20,8 @@ public class BArrow : MonoBehaviour
     public BArrowItem arrowItemPrefab;
     public AudioClip swooshSound;
     public AudioClip ricochetSound;
+
+    public SpriteRenderer flameSprite;
 
 
     Rigidbody2D rb;
@@ -72,10 +75,19 @@ public class BArrow : MonoBehaviour
             }
 
             rb.velocity = v;
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
         }
     }
 
-    public void pickUpSpeed()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Collider2D>().CompareTag("CampFire"))
+        {
+            LightOnFire(collision.GetComponentInParent<BCampFire>());
+        }
+    }
+
+    public void PickUpSpeed()
     {
         var amount = penetrateSpeed[level];
         rb.velocity *= amount;
@@ -85,6 +97,7 @@ public class BArrow : MonoBehaviour
     public void RestoreVelo()
     {
         rb.velocity = currVelo;
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
     public void PickUpCoin(int amount)
@@ -116,5 +129,24 @@ public class BArrow : MonoBehaviour
         {
             player.PlaySound(clip);
         }
+    }
+
+    public void LightOnFire(BCampFire campFire)
+    {
+        if (flameSprite && !flameSprite.gameObject.activeSelf)
+        {
+            flameSprite.gameObject.SetActive(true);
+            if (level < 3)
+            {
+                level++;
+                if (campFire)
+                {
+                    campFire.TakeDamage();
+                }
+            }
+        }
+
+        rb.velocity = rb.velocity.normalized * chargeArrowSpeeds[level];
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
 }

@@ -73,7 +73,7 @@ public class BEnemy : MonoBehaviour
                 arrow.RestoreVelo();
                 arrow.PickUpCoin(1);
                 arrow.AddCombo();
-                arrow.pickUpSpeed();
+                arrow.PickUpSpeed();
                 if (hitSound)
                 {
                     arrow.PlaySound(hitSound);
