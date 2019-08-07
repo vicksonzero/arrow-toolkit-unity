@@ -3,16 +3,16 @@
 public class BCameraShake : MonoBehaviour
 {
     public float shakeEnd = 0;
-    public Camera camera;
+    public Camera myCamera;
 
     public float masterShakeIntensity = 0.5f;
     float shakeIntensity = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
-        if (!camera)
+        if (!myCamera)
         {
-            camera = Camera.main;
+            myCamera = Camera.main;
         }
     }
 
@@ -24,19 +24,19 @@ public class BCameraShake : MonoBehaviour
         {
             if (shakeIntensity > 0)
             {
-                camera.transform.localPosition = new Vector2(Random.Range(-shakeIntensity, shakeIntensity), Random.Range(-shakeIntensity, shakeIntensity));
+                myCamera.transform.localPosition = new Vector2(Random.Range(-shakeIntensity, shakeIntensity), Random.Range(-shakeIntensity, shakeIntensity));
             }
         }
         else
         {
-            camera.transform.localPosition = Vector3.zero;
+            myCamera.transform.localPosition = Vector3.zero;
         }
     }
     public void Shake(float duration, float intensity)
     {
         if (duration == 0)
         {
-            camera.transform.localPosition = new Vector2(Random.Range(-shakeIntensity, shakeIntensity), Random.Range(-shakeIntensity, shakeIntensity));
+            myCamera.transform.localPosition = new Vector2(Random.Range(-shakeIntensity, shakeIntensity), Random.Range(-shakeIntensity, shakeIntensity));
         }
         else
         {
@@ -47,7 +47,7 @@ public class BCameraShake : MonoBehaviour
     public void Nudge(float duration, float intensity)
     {
         shakeIntensity = masterShakeIntensity * intensity;
-        camera.transform.localPosition = Random.insideUnitCircle.normalized * shakeIntensity + new Vector2(camera.transform.localPosition.x, camera.transform.localPosition.y);
+        myCamera.transform.localPosition = Random.insideUnitCircle.normalized * shakeIntensity + new Vector2(myCamera.transform.localPosition.x, myCamera.transform.localPosition.y);
         shakeIntensity = 0;
         shakeEnd = Mathf.Max(Time.time + duration, shakeEnd);
     }
