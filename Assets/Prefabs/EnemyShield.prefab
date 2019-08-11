@@ -200,7 +200,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3760609034606232644}
   - component: {fileID: 3760609034606232646}
-  - component: {fileID: 3760609034606232641}
   - component: {fileID: 4495503791346178991}
   - component: {fileID: 640237806182211765}
   - component: {fileID: 6208146936601604266}
@@ -254,28 +253,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3760609034606232641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3760609034606232640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b927c3d99322b4895656c1c9b3c184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyID: 1
-  speed: 1
-  minSpeed: 0.1
-  maxSpeed: 0.2
-  followInterval: 3000
-  followIntervalMin: 8000
-  followIntervalMax: 11000
-  canFollowPlayer: 1
-  shield: {fileID: 0}
-  hitSound: {fileID: 8300000, guid: 2731b73ecf1514841b3a962b5a128c5f, type: 3}
 --- !u!58 &4495503791346178991
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -419,13 +396,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202efa07a0e77754586ad680889029fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: -1
+  enemyID: 1
   speed: 1
-  minSpeed: 1
-  maxSpeed: 1
+  minSpeed: 0.2
+  maxSpeed: 0.4
   followInterval: 3000
-  followIntervalMin: 3000
-  followIntervalMax: 4000
+  followIntervalMin: 8000
+  followIntervalMax: 11000
   canFollowPlayer: 1
   shield: {fileID: 0}
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 2731b73ecf1514841b3a962b5a128c5f, type: 3}

@@ -55,6 +55,11 @@ public class BAimAssist : MonoBehaviour
                 hit = Physics2D.Raycast(lastHitPoint, reflectAngle, remainingDistance, raycastFilterWall);
             }
 
+            if (!hit)
+            {
+                break;
+            }
+
             reflectAngle = Vector3.Reflect(reflectAngle, hit.normal);
             reflectAngle.z = 0;
             lastHitPoint = hit.point + hit.normal * 0.001f;
