@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BZombieExplode : MonoBehaviour
+public class BEnemyExplode : MonoBehaviour
 {
     public SpriteRenderer zombieBodySprite;
     public float proximityIndex;

@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 4495503791346178991}
   - component: {fileID: 640237806182211765}
   - component: {fileID: 6208146936601604266}
+  - component: {fileID: 1736960091794081440}
   m_Layer: 11
   m_Name: EnemyShield
   m_TagString: Enemy
@@ -406,3 +407,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1736960091794081440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760609034606232640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202efa07a0e77754586ad680889029fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyID: -1
+  speed: 1
+  minSpeed: 1
+  maxSpeed: 1
+  followInterval: 3000
+  followIntervalMin: 3000
+  followIntervalMax: 4000
+  canFollowPlayer: 1
+  shield: {fileID: 0}
+  hitSound: {fileID: 0}

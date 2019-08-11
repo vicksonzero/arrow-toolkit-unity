@@ -42,50 +42,22 @@ public class BPlayer : MonoBehaviour
     {
         // handle command dash
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        var inputIsReleased = (dashCommandLastRawInput != moveInput && moveInput == Vector2.zero);
-        var inputIsPressed = (dashCommandLastRawInput == Vector2.zero && moveInput != Vector2.zero);
-        if (!isDashing && canDash && !bow.haveArrow && inputIsReleased)
-        {
-            dashCommandLastCommand = dashCommandLastRawInput;
-            StartCoroutine(KeepDashCommandState());
-        }
 
-        if (canDash && !bow.haveArrow && inputIsPressed && dashCommandLastCommand == moveInput)
+        if (canDash && !bow.haveArrow && Input.GetButton("Dash"))
         {
             // print("direction input released");
-            if (isDashing)
-            {
-                if (canDash)
-                {
-                    StartCoroutine(DoDashCooldown());
-                }
-            }
-            if (dashCommandWasReleasedBefore)
-            {
-                StartCoroutine(DashThenReset());
-            }
-            dashCommandLastCommand = dashCommandLastRawInput;
+            isDashing = true;
         }
-
-        // cancel any dashing if have arrow
-        if (bow.haveArrow)
+        else
         {
             isDashing = false;
-        }
-        if (isDashing && moveInput == Vector2.zero)
-        {
-            isDashing = false;
-            if (canDash)
-            {
-                StartCoroutine(DoDashCooldown());
-            }
         }
 
         // dash effect
-        if (isDashing && canSpawnAfterImage)
+        if (isDashing && canSpawnAfterImage && moveInput != Vector2.zero)
         {
             var _afterImage = Instantiate(dashAfterImage, transform.position, transform.rotation);
-            Destroy(_afterImage, spawnAfterImageDuration);
+            Destroy(_afterImage.gameObject, spawnAfterImageDuration);
             StartCoroutine(ThrottleAfterImage());
         }
 
@@ -126,8 +98,11 @@ public class BPlayer : MonoBehaviour
         //Debug.Log("OnTriggerEnter " + collision.collider.tag);
         if (collision.collider.CompareTag("Enemy"))
         {
-            GameObject.FindObjectOfType<BController>().GameOver(this);
-            Destroy(gameObject);
+            if (!collision.collider.GetComponent<BEnemyExplode>())
+            {
+                GameObject.FindObjectOfType<BController>().GameOver(this);
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -152,32 +127,6 @@ public class BPlayer : MonoBehaviour
             }
         }
         return closest;
-    }
-
-    IEnumerator DashThenReset()
-    {
-        isDashing = true;
-        yield return new WaitForSeconds(dashDuration);
-        isDashing = false;
-
-        if (canDash)
-        {
-            StartCoroutine(DoDashCooldown());
-        }
-    }
-    IEnumerator DoDashCooldown()
-    {
-        canDash = false;
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
-    }
-
-    IEnumerator KeepDashCommandState()
-    {
-        dashCommandWasReleasedBefore = true;
-        yield return new WaitForSeconds(dashCommandSensitivity);
-        dashCommandWasReleasedBefore = false;
-
     }
 
     IEnumerator ThrottleAfterImage()

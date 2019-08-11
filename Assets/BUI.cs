@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class BUI : MonoBehaviour
 {
     public Text text;
+    public Text hintText;
     private int coins = 0;
     private int maxCombo = 0;
     private BShop shop;
@@ -41,6 +42,10 @@ public class BUI : MonoBehaviour
     // Update is called once per frame
     void UpdateText()
     {
+        text.text = "Score: " + coins +
+            "\nMax Combo: " + maxCombo +
+            "\n";
+
         var tutString = "";
         for (int i = 0; i < tutScoreReq.Length; i++)
         {
@@ -49,10 +54,6 @@ public class BUI : MonoBehaviour
                 tutString = tutContent[i];
             }
         }
-
-        text.text = "Score: " + coins +
-            "\nMax Combo: " + maxCombo +
-            "\n" + tutString;
-
+        hintText.text = tutString;
     }
 }
