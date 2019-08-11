@@ -102,6 +102,8 @@ BSD 2-clause License
 
 Copyright 2019 Dickson Chui (github.com/vicksonzero)
 
+In short, always include the license file (in both source code and final product) and you should be fine.
+
 # Contribution
 
 Open with unity 2018.3.1f1
