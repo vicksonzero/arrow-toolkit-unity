@@ -158,8 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyID: 0
   speed: 1
-  minSpeed: 0.7
-  maxSpeed: 1.5
+  minSpeed: 0.4
+  maxSpeed: 0.8
   followInterval: 3000
   followIntervalMin: 1000
   followIntervalMax: 3000

@@ -8,6 +8,9 @@ public class BUI : MonoBehaviour
     private int maxCombo = 0;
     private BShop shop;
 
+    public string[] tutContent;
+    public int[] tutScoreReq;
+
 
     public int MaxCombo
     {
@@ -38,8 +41,18 @@ public class BUI : MonoBehaviour
     // Update is called once per frame
     void UpdateText()
     {
+        var tutString = "";
+        for (int i = 0; i < tutScoreReq.Length; i++)
+        {
+            if (Coins >= tutScoreReq[i])
+            {
+                tutString = tutContent[i];
+            }
+        }
+
         text.text = "Score: " + coins +
             "\nMax Combo: " + maxCombo +
-            "\n" + shop.GetShop();
+            "\n" + tutString;
+
     }
 }

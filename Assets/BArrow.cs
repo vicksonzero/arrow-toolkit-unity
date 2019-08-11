@@ -11,6 +11,7 @@ public class BArrow : MonoBehaviour
     public int coin = 0;
     public int combo = 0;
     public int level = 0;
+    public int bounceLevel = 0;
     public float[] chargeArrowSpeeds = new float[] { 3, 10, 20, 30 };
     public float[] penetrateSpeed = new float[] { 0.5f, 0.6f, 0.7f, 0.8f };
     public float[] bounceBonus = new float[] { 0.8f, 0.8f, 0.8f, 0.8f };
@@ -34,6 +35,7 @@ public class BArrow : MonoBehaviour
     {
         player = FindObjectOfType<BPlayer>();
         rb = GetComponent<Rigidbody2D>();
+        coinTextLabel.text = ""; // "+1"
     }
 
     // Update is called once per frame
@@ -77,6 +79,8 @@ public class BArrow : MonoBehaviour
 
             rb.velocity = v * bounceBonus[level];
             rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
+            bounceLevel++;
+            //coinTextLabel.text = "+" + GetCoinBonus1();
         }
     }
 
@@ -103,8 +107,19 @@ public class BArrow : MonoBehaviour
 
     public void PickUpCoin(int amount)
     {
-        coin += (int)Mathf.Pow(Mathf.Max(1, coin), 0.5f) * amount;
+        coin += GetCoinBonus1() * amount;
         coinTextLabel.text = "" + coin;
+    }
+
+    public int GetCoinBonus1()
+    {
+        return (int)Mathf.Pow(Mathf.Max(1, coin), 0.5f);
+    }
+
+
+    public int GetCoinBonus2()
+    {
+        return (int)Mathf.Pow(Mathf.Max(1, bounceLevel), 0.7f);
     }
 
     public void AddCombo()

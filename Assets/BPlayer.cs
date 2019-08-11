@@ -1,10 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BPlayer : MonoBehaviour
 {
     public float speed = 2;
-    public float proximityIndex;
+    public float proximityIndex = 0;
     public AudioSource proximitySoundLoop;
+    public bool isDashing = false;
+    public float dashSpeed = 5;
+
+    public float dashDuration = 1;
+
+    public bool canDash = true;
+    public float dashCooldown = 0.1f;
+
+    public float dashCommandSensitivity = 0.5f;
+    private Vector2 dashCommandLastRawInput = Vector2.zero;
+    private Vector2 dashCommandLastCommand = Vector2.zero;
+    public bool dashCommandWasReleasedBefore = false;
+
+    public SpriteRenderer dashAfterImage;
+    public bool canSpawnAfterImage = true;
+    public float spawnAfterImageInterval = 0.2f;
+    public float spawnAfterImageDuration = 0.5f;
 
     Rigidbody2D rb;
     BBow bow;
@@ -22,8 +40,63 @@ public class BPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // handle command dash
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed * (bow.isCharging ? 0.7f : 1);
+        var inputIsReleased = (dashCommandLastRawInput != moveInput && moveInput == Vector2.zero);
+        var inputIsPressed = (dashCommandLastRawInput == Vector2.zero && moveInput != Vector2.zero);
+        if (!isDashing && canDash && !bow.haveArrow && inputIsReleased)
+        {
+            dashCommandLastCommand = dashCommandLastRawInput;
+            StartCoroutine(KeepDashCommandState());
+        }
+
+        if (canDash && !bow.haveArrow && inputIsPressed && dashCommandLastCommand == moveInput)
+        {
+            // print("direction input released");
+            if (isDashing)
+            {
+                if (canDash)
+                {
+                    StartCoroutine(DoDashCooldown());
+                }
+            }
+            if (dashCommandWasReleasedBefore)
+            {
+                StartCoroutine(DashThenReset());
+            }
+            dashCommandLastCommand = dashCommandLastRawInput;
+        }
+
+        // cancel any dashing if have arrow
+        if (bow.haveArrow)
+        {
+            isDashing = false;
+        }
+        if (isDashing && moveInput == Vector2.zero)
+        {
+            isDashing = false;
+            if (canDash)
+            {
+                StartCoroutine(DoDashCooldown());
+            }
+        }
+
+        // dash effect
+        if (isDashing && canSpawnAfterImage)
+        {
+            var _afterImage = Instantiate(dashAfterImage, transform.position, transform.rotation);
+            Destroy(_afterImage, spawnAfterImageDuration);
+            StartCoroutine(ThrottleAfterImage());
+        }
+
+        // handle actual moving
+        var _speed = (isDashing ? dashSpeed : speed);
+        if (!isDashing && bow.isCharging)
+        {
+            _speed *= 0.7f;
+        }
+        moveVelocity = moveInput.normalized * _speed;
+        dashCommandLastRawInput = moveInput;
     }
 
     private void FixedUpdate()
@@ -35,7 +108,7 @@ public class BPlayer : MonoBehaviour
             var angle = Vector2.SignedAngle(Vector2.right, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
             transform.eulerAngles = new Vector3(0, 0, angle);
         }
-        else
+        else if (moveVelocity != Vector2.zero)
         {
             var angle = Vector2.SignedAngle(Vector2.right, moveVelocity);
             transform.eulerAngles = new Vector3(0, 0, angle);
@@ -79,5 +152,39 @@ public class BPlayer : MonoBehaviour
             }
         }
         return closest;
+    }
+
+    IEnumerator DashThenReset()
+    {
+        isDashing = true;
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+
+        if (canDash)
+        {
+            StartCoroutine(DoDashCooldown());
+        }
+    }
+    IEnumerator DoDashCooldown()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+    IEnumerator KeepDashCommandState()
+    {
+        dashCommandWasReleasedBefore = true;
+        yield return new WaitForSeconds(dashCommandSensitivity);
+        dashCommandWasReleasedBefore = false;
+
+    }
+
+    IEnumerator ThrottleAfterImage()
+    {
+        canSpawnAfterImage = false;
+        yield return new WaitForSeconds(spawnAfterImageInterval);
+        canSpawnAfterImage = true;
+
     }
 }

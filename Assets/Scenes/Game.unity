@@ -1186,7 +1186,7 @@ GameObject:
   - component: {fileID: 915635804}
   - component: {fileID: 915635805}
   m_Layer: 10
-  m_Name: New Sprite
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,6 +1407,18 @@ MonoBehaviour:
   speed: 2
   proximityIndex: 0
   proximitySoundLoop: {fileID: 915635805}
+  isDashing: 0
+  dashSpeed: 5
+  dashDuration: 1
+  canDash: 1
+  dashCooldown: 0.05
+  dashCommandSensitivity: 0.5
+  dashCommandWasReleasedBefore: 0
+  dashAfterImage: {fileID: 9108274885246516002, guid: a947982e6dfb3bc48bbfda5330e4caf6,
+    type: 3}
+  canSpawnAfterImage: 1
+  spawnAfterImageInterval: 0.02
+  spawnAfterImageDuration: 0.5
 --- !u!224 &938173461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6635,7 +6647,7 @@ MonoBehaviour:
 
     Avoid Zombies
 
-    Hold L-click to charge The Arrow,
+    Hold Left-click to charge The Arrow,
 
     Release to shoot'
 --- !u!222 &1129336635
@@ -12054,6 +12066,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1957362850}
+  tutContent:
+  - You can charge to up to 3 levels
+  - When not holding the Arrow, Double tap direction key to dash
+  - 
+  tutScoreReq: 32000000500000006e000000
 --- !u!114 &1333565755
 MonoBehaviour:
   m_ObjectHideFlags: 0
