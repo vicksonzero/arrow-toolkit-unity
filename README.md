@@ -25,6 +25,11 @@ https://vicksonzero.itch.io/arrow-toolkit
 
 # Updates
 
+## 09
+
+- Fix laser sight bug
+- Fix EnemyShield id bug
+
 ## 08
 
 - Added Dash
