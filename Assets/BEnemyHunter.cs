@@ -11,6 +11,7 @@ public class BEnemyHunter : BEnemy
         base.Start();
         var _exclamationMark = Instantiate(exclamationMarkPrefab);
         _exclamationMark.target = transform;
+        _exclamationMark.transform.position = transform.position;
         GetComponent<BEnemyBow>().exclamationMarkSprite = _exclamationMark.GetComponentInChildren<SpriteRenderer>();
     }
     public override void FixedUpdate()

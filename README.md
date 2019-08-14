@@ -25,6 +25,16 @@ https://vicksonzero.itch.io/arrow-toolkit
 
 # Updates
 
+# 10
+
+- Added EnemyHunter
+- Picks up your Arrow and shoots at you
+- Arrow  is lethal but adds to your combo
+- Arrow can be picked up when slow
+- Changed spawning pattern
+- Spawn points are easy to see
+- Spawn rate can be increased by progress
+
 ## 09
 
 - Fix laser sight bug

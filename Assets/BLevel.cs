@@ -10,9 +10,10 @@ public class BLevel : MonoBehaviour
         new int[] { 6, 2, 0, 0 },
         new int[] { 10, 5, 0, 0 },
         new int[] { 15, 7, 1, 0 },
-        new int[] { 20, 10, 2, 1 },
-        new int[] { 30, 13, 3, 2 },
-        new int[] { 50, 20, 3, 2 },
+        new int[] { 10, 10, 2, 1 },
+        new int[] { 20, 13, 3, 2 },
+        new int[] { 40, 20, 3, 2 },
+        new int[] { 100, 100, 10, 10 },
     };
 
     public BSpawnPoint[] spawnPoints;
@@ -23,6 +24,7 @@ public class BLevel : MonoBehaviour
         new int[] { 2, 6 },
         new int[] {  },
         new int[] {  },
+        new int[] {  },
     };
 
     public BSpawner[] spawners;
@@ -31,6 +33,7 @@ public class BLevel : MonoBehaviour
         new int[] { 6, 7 },
         new int[] { 8, 9 },
         new int[] { 10, 11 },
+        new int[] {  },
         new int[] {  },
         new int[] {  },
     };
@@ -50,26 +53,6 @@ public class BLevel : MonoBehaviour
     BUI ui;
     BController controller;
 
-    public void JoinLevel(int enemyID)
-    {
-        enemyCount[enemyID]++;
-    }
-
-    public void LeaveLevel(int enemyID)
-    {
-        enemyCount[enemyID]--;
-    }
-
-    public int GetCapByEnemyID(int enemyID)
-    {
-        return (level < 0) ? 0 : enemyCaps[level][enemyID];
-    }
-
-    public bool isEnemyCountBelowCap(int enemyID)
-    {
-        return (level >= 0) && (enemyCount[enemyID] < GetCapByEnemyID(enemyID));
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -85,21 +68,13 @@ public class BLevel : MonoBehaviour
         {
             sp.gameObject.SetActive(false);
         });
-        ActivateSpawnPointsOfLevel(0);
-        for (int i = 0; i < level; i++)
-        {
-            ActivateSpawnPointsOfLevel(i);
-        }
+        ActivateSpawnPointsOfLevel(Mathf.Max(0, level));
 
         spawners.ToList().ForEach((sp) =>
         {
             sp.gameObject.SetActive(false);
         });
-        ActivateSpawnersOfLevel(0);
-        for (int i = 0; i < level; i++)
-        {
-            ActivateSpawnersOfLevel(i);
-        }
+        ActivateSpawnersOfLevel(Mathf.Max(0, level));
     }
 
     // Update is called once per frame
@@ -127,21 +102,46 @@ public class BLevel : MonoBehaviour
         }
     }
 
-    void ActivateSpawnPointsOfLevel(int level)
+    public void JoinLevel(int enemyID)
     {
-
-        unlockSpawnPointList[level].ToList().ForEach((sp) =>
-        {
-            spawnPoints[sp].gameObject.SetActive(true);
-        });
+        enemyCount[enemyID]++;
     }
 
-    void ActivateSpawnersOfLevel(int level)
+    public void LeaveLevel(int enemyID)
     {
+        enemyCount[enemyID]--;
+    }
 
-        unlockSpawnerList[level].ToList().ForEach((sp) =>
+    public int GetCapByEnemyID(int enemyID)
+    {
+        return (level < 0) ? 0 : enemyCaps[level][enemyID];
+    }
+
+    public bool isEnemyCountBelowCap(int enemyID)
+    {
+        return (level >= 0) && (enemyCount[enemyID] < GetCapByEnemyID(enemyID));
+    }
+
+    void ActivateSpawnPointsOfLevel(int lv)
+    {
+        for (int i = 0; i <= lv; i++)
         {
-            spawners[sp].gameObject.SetActive(true);
-        });
+            unlockSpawnPointList[i].ToList().ForEach((sp) =>
+            {
+                spawnPoints[sp].gameObject.SetActive(true);
+            });
+        }
+
+    }
+
+    void ActivateSpawnersOfLevel(int lv)
+    {
+        for (int i = 0; i <= lv; i++)
+        {
+            unlockSpawnerList[i].ToList().ForEach((sp) =>
+            {
+                spawners[sp].gameObject.SetActive(true);
+            });
+        }
     }
 }

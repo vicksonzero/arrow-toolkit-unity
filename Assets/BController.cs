@@ -80,7 +80,8 @@ public class BController : MonoBehaviour
 
     public void Tutorial_1_2()
     {
-        //Debug.Log("Tutorial_1_2");
+        // Debug.Log("Tutorial_1_2");
+        startTime = DateTime.Now;
         tutText1.gameObject.SetActive(false);
         tutText2.gameObject.SetActive(true);
     }

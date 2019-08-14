@@ -98,7 +98,7 @@ public class BPlayer : MonoBehaviour
         //Debug.Log("OnTriggerEnter " + collision.collider.tag);
         if (collision.collider.CompareTag("Enemy"))
         {
-            if (!collision.collider.GetComponent<BEnemyExplode>())
+            if (!collision.collider.GetComponent<BEnemyExplode>() && !collision.collider.GetComponent<BEnemyHunter>())
             {
                 GameObject.FindObjectOfType<BController>().GameOver(this);
                 Destroy(gameObject);
