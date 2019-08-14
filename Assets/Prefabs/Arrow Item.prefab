@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coin: 0
+  combo: 0
+  level: 0
+  bounceLevel: 0
   text: {fileID: 2573584208745984054}
 --- !u!58 &1572521488933413786
 CircleCollider2D:
@@ -166,7 +169,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.28
+  m_Radius: 0.46
 --- !u!1 &3904452665958565442
 GameObject:
   m_ObjectHideFlags: 0

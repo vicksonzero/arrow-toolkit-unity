@@ -91,4 +91,10 @@ public class BController : MonoBehaviour
         tutText2.gameObject.SetActive(false);
         uiText.gameObject.SetActive(true);
     }
+
+
+    public void PlaySound(AudioClip clip)
+    {
+        sound.PlayOneShot(clip);
+    }
 }

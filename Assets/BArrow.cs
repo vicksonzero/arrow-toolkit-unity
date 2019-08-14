@@ -52,7 +52,7 @@ public class BArrow : MonoBehaviour
             Die();
         }
 
-        if(isDark && currSpeed <= 2)
+        if (isDark && currSpeed <= 2)
         {
             UndoDark();
         }
@@ -86,12 +86,7 @@ public class BArrow : MonoBehaviour
             var angle = Vector2.SignedAngle(Vector2.right, v);
             transform.eulerAngles = new Vector3(0, 0, angle);
 
-            var player = FindObjectOfType<BPlayer>();
-
-            if (player)
-            {
-                player.PlaySound(ricochetSound);
-            }
+            FindObjectOfType<BController>().PlaySound(ricochetSound);
 
             rb.velocity = v * bounceBonus[level];
             rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
@@ -158,11 +153,7 @@ public class BArrow : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
-        var player = FindObjectOfType<BPlayer>();
-        if (player)
-        {
-            player.PlaySound(clip);
-        }
+        FindObjectOfType<BController>().PlaySound(clip);
     }
 
     public void LightOnFire(BCampFire campFire)

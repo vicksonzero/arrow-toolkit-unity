@@ -59,19 +59,19 @@ public class BBow : MonoBehaviour
             {
                 chargeLevel++;
 
-                GetComponent<BPlayer>().PlaySound(chargingSounds[0]);
+                FindObjectOfType<BController>().PlaySound(chargingSounds[0]);
                 chargeLevelParticles.Play();
             }
             if (chargeLevel == 1 && Time.time - chargeStartTime >= 1.5)
             {
                 chargeLevel++;
-                GetComponent<BPlayer>().PlaySound(chargingSounds[1]);
+                FindObjectOfType<BController>().PlaySound(chargingSounds[1]);
                 chargeLevelParticles.Play();
             }
             if (chargeLevel == 2 && Time.time - chargeStartTime >= 2.5)
             {
                 chargeLevel++;
-                GetComponent<BPlayer>().PlaySound(chargingSounds[2]);
+                FindObjectOfType<BController>().PlaySound(chargingSounds[2]);
                 chargeLevelParticles.Play();
             }
         }
@@ -100,7 +100,7 @@ public class BBow : MonoBehaviour
             haveArrow = true;
             UpdateArrowIndicator();
             haveArrowIndicatorParticle.Play();
-            GetComponent<BPlayer>().PlaySound(pickUpSound);
+            FindObjectOfType<BController>().PlaySound(pickUpSound);
             Destroy(bArrowItem.gameObject);
         }
 

@@ -26,7 +26,12 @@ public class BEnemy : MonoBehaviour
     {
         speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
         followInterval = UnityEngine.Random.Range(followIntervalMin, followIntervalMax);
-        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<RectTransform>();
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            playerTransform = player.GetComponent<RectTransform>();
+        }
         bLevel = FindObjectOfType<BLevel>();
 
         bLevel.JoinLevel(enemyID);

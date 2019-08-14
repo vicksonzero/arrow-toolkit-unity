@@ -105,11 +105,6 @@ public class BPlayer : MonoBehaviour
             }
         }
     }
-
-    public void PlaySound(AudioClip clip)
-    {
-        sound.PlayOneShot(clip);
-    }
     public BEnemy FindClosestEnemy()
     {
         var gos = GameObject.FindObjectsOfType<BEnemy>();

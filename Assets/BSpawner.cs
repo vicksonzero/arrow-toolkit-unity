@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class BSpawner : MonoBehaviour
@@ -11,6 +12,9 @@ public class BSpawner : MonoBehaviour
     public float spawnIntervalMin = 5000;
     public float spawnIntervalMax = 7000;
     public bool canSpawn = true;
+    public bool spawnWhenActivated = true;
+
+    public BSpawnPoint[] spawnPoints;
 
     BLevel bLevel;
 
@@ -36,7 +40,30 @@ public class BSpawner : MonoBehaviour
 
     public IEnumerator SpawnEnemy()
     {
-        var bull = Instantiate(enemy, transform.position, transform.rotation);
+        if (spawnWhenActivated)
+        {
+            var availableSpawnPoints = (spawnPoints.ToList()
+                .Where((sp) => sp && sp.gameObject.activeSelf)
+                .ToArray()
+                );
+            if (availableSpawnPoints.Length <= 0)
+            {
+                availableSpawnPoints = spawnPoints;
+            }
+
+            availableSpawnPoints = (availableSpawnPoints.ToList()
+                .Where((sp) => sp && sp.canSpawn)
+                .ToArray()
+                );
+            if (availableSpawnPoints.Length <= 0)
+            {
+                print("insufficient spawn points(name=" + name + ")");
+                yield break;
+            }
+            var spawnPoint = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Length)];
+            spawnPoint.gameObject.SetActive(true);
+            spawnPoint.SpawnWithEffect(enemy);
+        }
 
         canSpawn = false;
 
@@ -47,5 +74,6 @@ public class BSpawner : MonoBehaviour
             yield break;
         }
         canSpawn = true;
+        spawnWhenActivated = true;
     }
 }

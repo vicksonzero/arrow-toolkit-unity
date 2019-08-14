@@ -73,20 +73,24 @@ public class BEnemyBow : MonoBehaviour
             {
                 chargeLevel++;
 
-                FindObjectOfType<BPlayer>().PlaySound(chargingSounds[0]);
-                chargeLevelParticles.Play();
             }
 
             if (chargeLevel == 1 && Time.time - chargeStartTime >= 1.5)
             {
                 chargeLevel++;
-                FindObjectOfType<BPlayer>().PlaySound(chargingSounds[1]);
+                FindObjectOfType<BController>().PlaySound(chargingSounds[0]);
                 chargeLevelParticles.Play();
             }
             if (chargeLevel == 2 && Time.time - chargeStartTime >= 2.5)
             {
                 chargeLevel++;
-                FindObjectOfType<BPlayer>().PlaySound(chargingSounds[2]);
+                FindObjectOfType<BController>().PlaySound(chargingSounds[1]);
+                chargeLevelParticles.Play();
+            }
+            if (chargeLevel == 3 && Time.time - chargeStartTime >= 3.5)
+            {
+                chargeLevel++;
+                FindObjectOfType<BController>().PlaySound(chargingSounds[2]);
                 chargeLevelParticles.Play();
             }
         }
@@ -99,8 +103,8 @@ public class BEnemyBow : MonoBehaviour
         chargeParticles.Play();
         chargeStartTime = Time.time;
 
-        yield return new WaitForSeconds(3);
-        if (isCharging)
+        yield return new WaitForSeconds(4);
+        if (isCharging && player)
         {
             ShootArrow();
             isCharging = false;
@@ -113,13 +117,13 @@ public class BEnemyBow : MonoBehaviour
 
     public void ShootArrow()
     {
-        if (!player)
-        {
-            return;
-        }
+        chargeLevel -= 1;
 
         var arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
-        var angle = Vector2.SignedAngle(Vector2.right, player.transform.position - arrow.transform.position);
+        var direction = (player ? player.transform.position - arrow.transform.position : transform.right);
+
+        var angle = Vector2.SignedAngle(Vector2.right, direction);
+
         arrow.transform.eulerAngles = new Vector3(0, 0, angle);
         arrow.GetComponent<BArrow>().level = chargeLevel;
         arrow.GetComponent<BArrow>().coin = cachedCoin;
@@ -147,7 +151,7 @@ public class BEnemyBow : MonoBehaviour
             haveArrow = true;
             UpdateArrowIndicator();
             haveArrowIndicatorParticle.Play();
-            FindObjectOfType<BPlayer>().PlaySound(pickUpSound);
+            FindObjectOfType<BController>().PlaySound(pickUpSound);
             Destroy(bArrowItem.gameObject);
         }
 
