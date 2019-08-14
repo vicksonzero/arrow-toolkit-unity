@@ -404,5 +404,5 @@ MonoBehaviour:
   followIntervalMin: 8000
   followIntervalMax: 11000
   canFollowPlayer: 1
-  shield: {fileID: 0}
+  allowStop: 1
   hitSound: {fileID: 8300000, guid: 2731b73ecf1514841b3a962b5a128c5f, type: 3}

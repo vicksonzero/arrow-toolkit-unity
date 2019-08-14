@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class BArrow : MonoBehaviour
 {
-
+    public bool isDark = false;
     public LayerMask collisionMask;
     public Vector2 currVelo;
     public float currSpeed;
@@ -24,10 +24,12 @@ public class BArrow : MonoBehaviour
     public AudioClip ricochetSound;
 
     public SpriteRenderer flameSprite;
+    public ParticleSystem darkParticles;
 
 
     Rigidbody2D rb;
     BPlayer player;
+    TrailRenderer trail;
 
 
     // Start is called before the first frame update
@@ -35,6 +37,7 @@ public class BArrow : MonoBehaviour
     {
         player = FindObjectOfType<BPlayer>();
         rb = GetComponent<Rigidbody2D>();
+        trail = GetComponentInChildren<TrailRenderer>();
         coinTextLabel.text = ""; // "+1"
     }
 
@@ -49,14 +52,27 @@ public class BArrow : MonoBehaviour
             Die();
         }
 
+        if(isDark && currSpeed <= 2)
+        {
+            UndoDark();
+        }
+
 
         if (player)
         {
-            var speed = rb.velocity.magnitude;
             var distToPlayer = Vector2.Distance(player.transform.position, transform.position);
-            if (speed < 2 && distToPlayer < 0.4)
+            if (distToPlayer < 0.4)
             {
-                Die();
+                if (currSpeed < 2)
+                {
+                    Die();
+                }
+                else if (isDark)
+                {
+                    GameObject.FindObjectOfType<BController>().GameOver(player);
+                    Destroy(player.gameObject);
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -134,6 +150,8 @@ public class BArrow : MonoBehaviour
 
         var arrowItem = Instantiate(arrowItemPrefab, transform.position, Quaternion.identity);
         arrowItem.GetComponent<BArrowItem>().ApplyCoin(coin);
+        arrowItem.GetComponent<BArrowItem>().ApplyStat(combo, level, bounceLevel);
+
         Destroy(gameObject);
     }
 
@@ -164,5 +182,21 @@ public class BArrow : MonoBehaviour
 
         rb.velocity = rb.velocity.normalized * chargeArrowSpeeds[level];
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
+    }
+
+    public void SetToDark()
+    {
+        isDark = true;
+        darkParticles.Play();
+        trail = GetComponentInChildren<TrailRenderer>();
+        trail.startColor = Color.black;
+    }
+
+    public void UndoDark()
+    {
+        isDark = false;
+        darkParticles.Stop();
+        trail = GetComponentInChildren<TrailRenderer>();
+        trail.startColor = Color.white;
     }
 }

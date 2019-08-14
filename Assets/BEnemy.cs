@@ -12,7 +12,7 @@ public class BEnemy : MonoBehaviour
     public float followIntervalMin = 3000;
     public float followIntervalMax = 4000;
     public bool canFollowPlayer = true;
-    public GameObject shield;
+    public bool allowStop = false;
 
     protected RectTransform playerTransform;
     protected Vector3 targetPosition;
@@ -22,7 +22,7 @@ public class BEnemy : MonoBehaviour
     BLevel bLevel;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
         followInterval = UnityEngine.Random.Range(followIntervalMin, followIntervalMax);
@@ -42,13 +42,19 @@ public class BEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public virtual void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
-        var angle = Vector2.SignedAngle(Vector2.right, targetPosition - transform.position);
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        var _speed = GetSpeed();
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);
 
-        if (Vector3.Distance(transform.position, targetPosition) <= 0.1 && shield == null)
+        var displacement = targetPosition - transform.position;
+        if (displacement.magnitude > 0.1f)
+        {
+            var angle = Vector2.SignedAngle(Vector2.right, displacement);
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        }
+
+        if (Vector3.Distance(transform.position, targetPosition) <= 0.1 && !allowStop)
         {
             canFollowPlayer = true;
         }
@@ -59,9 +65,14 @@ public class BEnemy : MonoBehaviour
         }
     }
 
-    IEnumerator UpdateTargetPos()
+    public virtual float GetSpeed()
     {
-        //Debug.Log("BEnemy UpdateTargetPos");
+        return speed;
+    }
+
+    public virtual IEnumerator UpdateTargetPos()
+    {
+        // Debug.Log("BEnemy UpdateTargetPos");
         if (playerTransform == null)
         {
             canFollowPlayer = false;

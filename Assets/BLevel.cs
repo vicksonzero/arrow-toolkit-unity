@@ -2,15 +2,16 @@
 
 public class BLevel : MonoBehaviour
 {
+    [Tooltip("Default -1")]
     public int level = -1;
     public BArrowItem startingArrow;
     public int[][] enemyCaps = new int[][]{
-        new int[] { 10, 2, 0 },
-        new int[] { 20, 10, 0 },
-        new int[] { 25, 10, 1 },
-        new int[] { 35, 15, 2 },
-        new int[] { 50, 20, 3 },
-        new int[] { 70, 25, 3 },
+        new int[] { 10, 2, 0, 0 },
+        new int[] { 20, 10, 0, 0 },
+        new int[] { 25, 10, 1, 0 },
+        new int[] { 35, 15, 2, 1 },
+        new int[] { 50, 20, 3, 2 },
+        new int[] { 70, 25, 3, 2 },
     };
 
     public int[] levelReq = new int[]
@@ -18,11 +19,11 @@ public class BLevel : MonoBehaviour
         0,
         10,
         50,
-        100,
-        200,
+        90,
+        150,
     };
 
-    public int[] enemyCount = new int[5] { 0, 0, 0, 0, 0 };
+    public int[] enemyCount = new int[] { 0, 0, 0, 0, 0 };
 
 
     BUI ui;
@@ -53,6 +54,11 @@ public class BLevel : MonoBehaviour
     {
         ui = FindObjectOfType<BUI>();
         controller = FindObjectOfType<BController>();
+        if (level >= 2)
+        {
+            controller.Tutorial_1_2();
+            controller.Tutorial_2_3();
+        }
     }
 
     // Update is called once per frame
